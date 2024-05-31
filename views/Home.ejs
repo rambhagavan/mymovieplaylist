@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/Homecss/home.css">
+    <title>Movie Search</title>
+</head>
+
+
+<body>
+    <div>
+        <div style="margin-left: 5%; display: inline;">
+            <form action="/Home" method="post">
+                <input placeholder="Enter Your Movie Name" name="moviename"
+                    style="height: 35px; width:250px; border-radius: 5px; border-color: black;">
+                <button class="button-8" role="button">Search</button>
+            </form>
+            <button class="button-8"><a href="/playlist" style="text-decoration: none;">see your playlist</a></button>
+        </div>
+        <div
+            style=" margin-top: 3%; box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset; background-color: #e1ecf4;margin-left: 35%;margin-bottom: 10%; width:70vh;">
+            <% if (data) { %>
+                <% const jsonData=encodeURIComponent(JSON.stringify(data)); %>
+                    <!-- <a href="addplaylist?data=<%= jsonData %>">Add Playlist</a> -->
+                    <div style="display: flex;">
+                        <div>
+                            <h3>
+                                <%= data.Title %> (<%= data.Year %>)
+                            </h3>
+                        </div>
+                        <div style="margin-left:47%;margin-top:2%">
+                            <button class="button-8"><a href="addplaylist?data=<%= jsonData %>"
+                                    style="text-decoration: none;">Add Playlist</a></button>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="<%= data.Poster %>" alt="<%= data.Title %> Poster"
+                            style="width: 200px; height: 200px;">
+                        <p><strong>Genre:</strong>
+                            <%= data.Genre %>
+                        </p>
+                        <p><strong>Actors:</strong>
+                            <%= data.Actors %>
+                        </p>
+                        <p><strong>Plot:</strong>
+                            <%= data.Plot %>
+                        </p>
+                        <!-- <p><strong>Language:</strong> <%= data.Language %></p> -->
+                        <!-- <p><strong>Country:</strong> <%= data.Country %></p> -->
+                        <p><strong>Released:</strong>
+                            <%= data.Released %>
+                        </p>
+                        <p><strong>IMDB Rating:</strong>
+                            <%= data.imdbRating %> (<%= data.imdbVotes %> votes)
+                        </p>
+                        <% if (data.Ratings && data.Ratings.length> 0) { %>
+                            <p><strong>Ratings:</strong></p>
+                            <ul>
+                                <% data.Ratings.forEach(function(rating) { %>
+                                    <li>
+                                        <%= rating.Source %>: <%= rating.Value %>
+                                    </li>
+                                    <% }); %>
+                            </ul>
+                            <% } %>
+                    </div>
+
+
+                    <% } else { %>
+                        <% } %>
+
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
